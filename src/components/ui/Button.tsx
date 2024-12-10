@@ -1,8 +1,10 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { cva, VariantProps } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
 import { ButtonHTMLAttributes, FC } from "react";
 
+// Define the class-variance-authority for the button component.
+// means give default tailwind class name and some attributes
 export const buttonVariants = cva(
   "active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium transition-color focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none",
   {
@@ -24,19 +26,22 @@ export const buttonVariants = cva(
   }
 );
 
+// Interface for the button props, extending default button attributes and custom styling variants
 export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
+  extends ButtonHTMLAttributes<HTMLButtonElement>, // Default HTML button attributes
     VariantProps<typeof buttonVariants> {
-  isLoading?: boolean;
+  // Custom styling logic
+  isLoading?: boolean; // Custom prop to indicate loading state
 }
 
+// Button component definition
 const Button: FC<ButtonProps> = ({
   className,
   children,
-  variant,
-  isLoading,
-  size,
-  ...props
+  variant, // Styling variant (e.g., primary, secondary)
+  isLoading, // Whether the button is in a loading state
+  size, // Size of the button (e.g., small, large)
+  ...props // Remaining props
 }) => {
   return (
     <button
@@ -51,5 +56,3 @@ const Button: FC<ButtonProps> = ({
 };
 
 export default Button;
-
-
