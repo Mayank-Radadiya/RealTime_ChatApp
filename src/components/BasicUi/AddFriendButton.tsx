@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { useState } from "react";
 import Button from "@/components/ui/Button";
 import {
   Card,
@@ -32,7 +32,7 @@ const AddFriendButton = ({}) => {
     try {
       const emailValidation = addFriendValidator.parse({ email });
 
-      axios.post("/api/friends/add", {
+      await axios.post("/api/friends/add", {
         email: emailValidation,
       });
 
@@ -52,9 +52,13 @@ const AddFriendButton = ({}) => {
     }
   };
 
+  const onSubmit = (data: FormData) => {
+    addFriend(data.email);
+  };
+
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-gray-50">
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="flex flex-col h-[50vh] w-[90vw] max-w-lg items-center justify-center p-6 shadow-lg rounded-lg bg-white">
           <CardHeader>
             <div className="w-full flex items-center justify-center">
@@ -92,10 +96,10 @@ const AddFriendButton = ({}) => {
             </CardDescription>
           </CardHeader>
 
-          <Input placeholder="example@gmail.com" />
+          <Input {...register("email")} placeholder="example@gmail.com" />
           <div className="flex w-full justify-start items-start">
             <Button
-              type="button"
+              type="submit"
               className="mt-4 flex items-center justify-center  max-w-sm bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out disabled:bg-blue-300 disabled:cursor-not-allowed gap-3"
               onClick={() => {}}
             >
@@ -117,6 +121,10 @@ const AddFriendButton = ({}) => {
               Send
             </Button>
           </div>
+          <p className="mt-1 text-sm text-red-600">{errors.email?.message}</p>
+          {showSuccessState ? (
+            <p className="mt-1 text-sm text-green-600">Friend request sent!</p>
+          ) : null}
         </Card>
       </form>
     </div>
