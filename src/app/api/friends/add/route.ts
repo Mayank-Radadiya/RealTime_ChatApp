@@ -54,15 +54,20 @@ export async function POST(req: Request) {
       return new Response("Already friends with this user", { status: 400 });
     }
 
-    //send friend request
+    // valid request, send friend request
 
-    dbConnection.sadd(
-      `user:${idToAdd}:incomming_friend_requests`,
-      session.user.id
-    );
+    // await pusherServer.trigger(
+    //   toPusherKey(`user:${idToAdd}:incoming_friend_requests`),
+    //   "incoming_friend_requests",
+    //   {
+    //     senderId: session.user.id,
+    //     senderEmail: session.user.email,
+    //   }
+    // );
 
-    return new Response("ok");
+    await dbConnection.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id);
 
+    return new Response("OK");
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response("Invalid request payload", { status: 422 });

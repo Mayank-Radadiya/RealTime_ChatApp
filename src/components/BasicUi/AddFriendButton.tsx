@@ -13,6 +13,7 @@ import { addFriendValidator } from "@/lib/validation/add-friend";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
+import { SendHorizontal } from "lucide-react";
 
 type FormData = z.infer<typeof addFriendValidator>;
 
@@ -57,7 +58,7 @@ const AddFriendButton = ({}) => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-gray-50">
+    <div className="max-h-screen mt-40 flex flex-col items-center justify-center bg-gray-50">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="flex flex-col h-[50vh] w-[90vw] max-w-lg items-center justify-center p-6 shadow-lg rounded-lg bg-white">
           <CardHeader>
@@ -100,24 +101,10 @@ const AddFriendButton = ({}) => {
           <div className="flex w-full justify-start items-start">
             <Button
               type="submit"
-              className="mt-4 flex items-center justify-center  max-w-sm bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out disabled:bg-blue-300 disabled:cursor-not-allowed gap-3"
+              className="mt-4 flex items-center justify-center  max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out disabled:bg-blue-300 disabled:cursor-not-allowed gap-3"
               onClick={() => {}}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-send-horizontal"
-              >
-                <path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z" />
-                <path d="M6 12h16" />
-              </svg>
+              <SendHorizontal />
               Send
             </Button>
           </div>

@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
 import { dbConnection } from "../database/DbConnection"; // Custom Redis database connection
 import GoogleProvider from "next-auth/providers/google"; // Google OAuth provider for authentication
+import { fetchRedis } from "@/helpers/redis";
 
 // Function to fetch Google OAuth credentials from environment variables
 function getGoogleCredentials() {
@@ -48,17 +49,18 @@ export const authOptions: NextAuthOptions = {
     // Modify the JWT token during creation and updates
     async jwt({ token, user }) {
       // Attempt to retrieve user from Redis using the token ID
-      const dbUser =
-        ((await dbConnection.get(`user: ${token.id}`)) as User) || null;
+      const dbUserResult = (await fetchRedis("get", `user:${token.id}`)) as
+        | string
+        | null;
 
       // If no user exists in Redis and a user object is available (on login)
-      if (!dbUser) {
+      if (!dbUserResult) {
         if (user) {
           token.id = user!.id; // Assign user ID to the token
         }
         return token; // Return the updated token
       }
-
+      const dbUser = JSON.parse(dbUserResult) as User;
       // If user exists in Redis, populate the token with user details
       return {
         id: dbUser.id,
