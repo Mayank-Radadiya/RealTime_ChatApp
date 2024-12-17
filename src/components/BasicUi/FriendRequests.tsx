@@ -1,6 +1,6 @@
 "use client";
 import { Check, Frown, SendHorizontal, UserPlus, X } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import {
   Card,
@@ -9,6 +9,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Button from "../ui/Button";
+import Image from "next/image";
+import axios from "axios";
 
 interface FriendRequestsProps {
   incomingFriendRequests: IncomingFriendRequest[];
@@ -23,10 +25,30 @@ const FriendRequests: FC<FriendRequestsProps> = ({
   const [friendRequests, setFriendRequests] = useState<IncomingFriendRequest[]>(
     incomingFriendRequests
   );
+
+  const acceptFriend = async (senderId: string) => {
+    await axios.post("/api/friends/accept", { id: senderId });
+
+    setFriendRequests((prev) =>
+      prev.filter((request) => request.senderId !== senderId)
+    );
+
+    router.refresh();
+  };
+
+  const denyFriend = async (senderId: string) => {
+    await axios.post("/api/friends/deny", { id: senderId });
+
+    setFriendRequests((prev) =>
+      prev.filter((request) => request.senderId !== senderId)
+    );
+
+    router.refresh();
+  };
   return (
     <>
       <div className="w-full max-h-screen mt-24  flex  justify-center items-center">
-        <div className="w-[50vw] h-[50vh] ">
+        <div className="w-[50vw] h-[50vh] overflow-scroll scroll-smooth">
           <Card className="flex flex-col h-full w-full  items-center justify-center p-6 shadow-lg rounded-lg bg-white">
             {friendRequests.length === 0 ? (
               <>
@@ -39,12 +61,12 @@ const FriendRequests: FC<FriendRequestsProps> = ({
                   But You Can Send Friend Request
                 </CardTitle>
                 <Button
-                  type="submit"
+                  type="button"
                   className="mt-4 flex items-center justify-center  max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out disabled:bg-blue-300 disabled:cursor-not-allowed gap-3"
-                  onClick={() => {}}
+                  onClick={() => { redirect("add")}}
                 >
                   <SendHorizontal />
-                  Send
+                  Add New Friend
                 </Button>
               </>
             ) : (
@@ -59,28 +81,47 @@ const FriendRequests: FC<FriendRequestsProps> = ({
                     {friendRequests.map((request) => (
                       <div
                         key={request.senderId}
-                        className="flex gap-4 items-center"
+                        className="flex gap-4 items-center ml-4"
                       >
-                        <UserPlus className="text-black" />
-                        <p className="font-medium text-lg">
-                          {request.senderEmail}
-                        </p>
-                        <button
-                          //   onClick={() => acceptFriend(request.senderId)}
-                          aria-label="accept friend"
-                          className="w-8 h-8 bg-indigo-600 hover:bg-indigo-700 grid place-items-center rounded-full transition hover:shadow-md"
-                        >
-                          <Check className="font-semibold text-white w-3/4 h-3/4" />
-                        </button>
+                        <li className="-mx-6 mt-auto flex items-center relative ">
+                          <div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900">
+                            <div className="relative h-10 w-10 bg-gray-50">
+                              <Image
+                                fill
+                                referrerPolicy="no-referrer"
+                                className="rounded-full"
+                                src={request.senderImage || ""}
+                                alt="Your profile picture"
+                              />
+                            </div>
+                            <div className="flex flex-col">
+                              <span
+                                className="text-sm text-zinc-500"
+                                aria-hidden="true"
+                              >
+                                {request.senderEmail}
+                              </span>
+                            </div>
+                            <Button
+                              onClick={() => acceptFriend(request.senderId)}
+                              variant="ghost"
+                              className="border w-20 px-4 py-2 rounded-md shadow-md  hover:shadow-lg hover:bg-green-400 hover:text-white group transition duration-300 ease-in-out"
+                            >
+                              <span className="group-hover:hidden">Accept</span>
+                              <Check className="hidden group-hover:inline-block" />
+                            </Button>
 
-                        <button
-                          //   onClick={() => denyFriend(request.senderId)}
-                          aria-label="deny friend"
-                          className="w-8 h-8 bg-red-600 hover:bg-red-700 grid place-items-center rounded-full transition hover:shadow-md"
-                        >
-                          <X className="font-semibold text-white w-3/4 h-3/4" />
-                        </button>
-                        
+                            {/* Reject Button */}
+                            <Button
+                              onClick={() => denyFriend(request.senderId)}
+                              variant="ghost"
+                              className="border w-20 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-red-400 hover:text-white group transition duration-300 ease-in-out"
+                            >
+                              <span className="group-hover:hidden">Reject</span>
+                              <X className="hidden group-hover:inline-block" />
+                            </Button>
+                          </div>
+                        </li>
                       </div>
                     ))}
                   </div>

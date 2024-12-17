@@ -30,7 +30,7 @@ const sidebarOptions: SidebarOption[] = [
 
 const layout = async ({ children }: layoutProps) => {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/login");
+  if (!session) notFound()
 
   const unseenRequestCount = (
     (await fetchRedis(
@@ -79,7 +79,6 @@ const layout = async ({ children }: layoutProps) => {
                     </li>
                   );
                 })}
-
                 <li>
                   <FriendRequestSidebar
                     sessionId={session.user.id}

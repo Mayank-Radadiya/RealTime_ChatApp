@@ -3,11 +3,7 @@ import { fetchRedis } from '@/helpers/redis';
 import { authOptions } from '@/lib/auth/auth.utils';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
-import { FC } from 'react'
 
-interface pageProps {
-  
-}
 
 const page = async () => {
   const session = await getServerSession(authOptions);
@@ -18,7 +14,6 @@ const page = async () => {
     "smembers",
     `user:${session.user.id}:incoming_friend_requests`
   )) as string[];
-
 
    const incomingFriendRequests = await Promise.all(
      incomingSenderIds.map(async (senderId) => {
@@ -32,6 +27,8 @@ const page = async () => {
        };
      })
    );
+
+   
 
   return (
     <main className="pt-8">
