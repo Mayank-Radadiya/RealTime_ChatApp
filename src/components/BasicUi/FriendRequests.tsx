@@ -85,7 +85,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({
                         key={request.senderId}
                         className="flex gap-4 items-center ml-4"
                       >
-                        <Card className="w-full">
+                        <Card className="w-full shadow-md mb-2">
                           <li className="-mx-6 mt-auto flex items-center px-4 relative ">
                             <div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900">
                               <div className="relative h-10 w-10 bg-gray-50">
@@ -94,7 +94,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({
                                   referrerPolicy="no-referrer"
                                   className="rounded-full"
                                   src={request.senderImage || ""}
-                                  alt="Your profile picture"
+                                  alt="profile picture"
                                 />
                               </div>
                               <div className="flex flex-col">
