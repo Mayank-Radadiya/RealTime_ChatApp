@@ -63,7 +63,9 @@ const FriendRequests: FC<FriendRequestsProps> = ({
                 <Button
                   type="button"
                   className="mt-4 flex items-center justify-center  max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out disabled:bg-blue-300 disabled:cursor-not-allowed gap-3"
-                  onClick={() => { redirect("add")}}
+                  onClick={() => {
+                    redirect("add");
+                  }}
                 >
                   <SendHorizontal />
                   Add New Friend
@@ -73,55 +75,63 @@ const FriendRequests: FC<FriendRequestsProps> = ({
               <>
                 <div className="w-full h-full">
                   <CardHeader className="flex justify-start w-full ">
-                    <CardTitle className="text-2xl font-semibold text-gray-700 mt-8 ">
+                    <CardTitle className="text-2xl font-semibold text-gray-700  ">
                       Friend Request
                     </CardTitle>
                   </CardHeader>
-                  <div className="">
+                  <div className="relative">
                     {friendRequests.map((request) => (
                       <div
                         key={request.senderId}
                         className="flex gap-4 items-center ml-4"
                       >
-                        <li className="-mx-6 mt-auto flex items-center relative ">
-                          <div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900">
-                            <div className="relative h-10 w-10 bg-gray-50">
-                              <Image
-                                fill
-                                referrerPolicy="no-referrer"
-                                className="rounded-full"
-                                src={request.senderImage || ""}
-                                alt="Your profile picture"
-                              />
-                            </div>
-                            <div className="flex flex-col">
-                              <span
-                                className="text-sm text-zinc-500"
-                                aria-hidden="true"
-                              >
-                                {request.senderEmail}
-                              </span>
-                            </div>
-                            <Button
-                              onClick={() => acceptFriend(request.senderId)}
-                              variant="ghost"
-                              className="border w-20 px-4 py-2 rounded-md shadow-md  hover:shadow-lg hover:bg-green-400 hover:text-white group transition duration-300 ease-in-out"
-                            >
-                              <span className="group-hover:hidden">Accept</span>
-                              <Check className="hidden group-hover:inline-block" />
-                            </Button>
+                        <Card className="w-full">
+                          <li className="-mx-6 mt-auto flex items-center px-4 relative ">
+                            <div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900">
+                              <div className="relative h-10 w-10 bg-gray-50">
+                                <Image
+                                  fill
+                                  referrerPolicy="no-referrer"
+                                  className="rounded-full"
+                                  src={request.senderImage || ""}
+                                  alt="Your profile picture"
+                                />
+                              </div>
+                              <div className="flex flex-col">
+                                <span
+                                  className="text-sm text-zinc-500"
+                                  aria-hidden="true"
+                                >
+                                  {request.senderEmail}
+                                </span>
+                              </div>
+                              <div className="absolute right-10 gap-3 flex items-center">
+                                <Button
+                                  onClick={() => acceptFriend(request.senderId)}
+                                  variant="ghost"
+                                  className="border w-20 px-4 py-2 rounded-md shadow-md  hover:shadow-lg hover:bg-green-400 hover:text-white group transition duration-300 ease-in-out"
+                                >
+                                  <span className="group-hover:hidden">
+                                    Accept
+                                  </span>
+                                  <Check className="hidden group-hover:inline-block" />
+                                </Button>
 
-                            {/* Reject Button */}
-                            <Button
-                              onClick={() => denyFriend(request.senderId)}
-                              variant="ghost"
-                              className="border w-20 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-red-400 hover:text-white group transition duration-300 ease-in-out"
-                            >
-                              <span className="group-hover:hidden">Reject</span>
-                              <X className="hidden group-hover:inline-block" />
-                            </Button>
-                          </div>
-                        </li>
+                                {/* Reject Button */}
+                                <Button
+                                  onClick={() => denyFriend(request.senderId)}
+                                  variant="ghost"
+                                  className="border w-20 px-4 py-2 rounded-md shadow-md hover:shadow-lg hover:bg-red-400 hover:text-white group transition duration-300 ease-in-out"
+                                >
+                                  <span className="group-hover:hidden">
+                                    Reject
+                                  </span>
+                                  <X className="hidden group-hover:inline-block" />
+                                </Button>
+                              </div>
+                            </div>
+                          </li>
+                        </Card>
                       </div>
                     ))}
                   </div>
