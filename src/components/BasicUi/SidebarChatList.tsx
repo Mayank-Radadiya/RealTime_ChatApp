@@ -19,7 +19,6 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ sessionId, friends }) => {
   const [unseenMessages, setUnseenMessages] = useState<Message[]>([]);
    const [activeChats, setActiveChats] = useState<User[]>(friends);
 
-   console.log(friends);
    
   useEffect(() => {
     if (pathname?.includes("chat")) {

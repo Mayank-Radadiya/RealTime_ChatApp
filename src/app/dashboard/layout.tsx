@@ -123,13 +123,11 @@ const layout = async ({ children }: layoutProps) => {
         </nav>
       </div>
 
-      {/* Main Content */}
-      <aside className="max-h-screen container py-16 md:py-12 w-full">
+      <aside className="max-h-screen container py-6 md:py-4 w-full">
         {children}
       </aside>
     </div>
   );
-
 };
 
 export default layout;
