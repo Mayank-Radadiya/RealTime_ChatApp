@@ -2,8 +2,8 @@
 import { FC, useRef, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils/utils";
-
-
+import { Message } from "@/lib/validation/message.validation";
+import { format } from "date-fns";
 
 interface MessagesProps {
   initialMessages: Message[];
@@ -20,8 +20,12 @@ const Messages: FC<MessagesProps> = ({
   chatPartner,
   sessionImg,
 }) => {
-    const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>(initialMessages);
   const scrollDownRef = useRef(null);
+
+   const formatTimestamp = (timestamp: number) => {
+     return format(timestamp, "HH:mm");
+   };
 
   return (
     <>
@@ -37,9 +41,7 @@ const Messages: FC<MessagesProps> = ({
           const hasNextMessageFromSameUser =
             messages[index - 1]?.senderId === messages[index].senderId;
 
-            function formatTimestamp(timestamp: any): import("react").ReactNode {
-                throw new Error("Function not implemented.");
-            }
+          
 
           return (
             <div
