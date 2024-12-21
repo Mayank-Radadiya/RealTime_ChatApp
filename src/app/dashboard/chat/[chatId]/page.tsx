@@ -12,7 +12,7 @@ interface pageProps {
   };
 }
 
-const page = async ({ params }: pageProps) => {
+const Page = async ({ params }: pageProps) => {
   const { chatId } = await params;
 
   const session = await getServerSession(authOptions);
@@ -73,4 +73,4 @@ const page = async ({ params }: pageProps) => {
   );
 };
 
-export default page;
+export default Page;

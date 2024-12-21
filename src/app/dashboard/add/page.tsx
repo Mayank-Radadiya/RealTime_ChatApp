@@ -1,7 +1,7 @@
 import AddFriendButton from "@/components/BasicUi/AddFriendButton";
 import { FC } from "react";
 
-const page: FC = () => {
+const Page: FC = () => {
   return (
     <main>
       <AddFriendButton />
@@ -9,4 +9,4 @@ const page: FC = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -31,9 +31,9 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
 
-  // Custom page routes
+  // Custom Page routes
   pages: {
-    signIn: "/login", // Set the custom login page
+    signIn: "/login", // Set the custom login Page
   },
 
   // OAuth providers for authentication

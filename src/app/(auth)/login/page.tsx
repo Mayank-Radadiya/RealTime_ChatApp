@@ -9,10 +9,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import { toast } from "react-hot-toast";
 
-const page = ({}) => {
+const Page = ({}) => {
   const [IsLoading, SetIsLoading] = useState<boolean>(false);
 
   async function loginWithGoogle() {
@@ -96,4 +95,4 @@ const page = ({}) => {
   );
 };
 
-export default page;
+export default Page;
