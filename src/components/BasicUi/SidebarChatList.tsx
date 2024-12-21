@@ -43,7 +43,7 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ sessionId, friends }) => {
       if (!shouldNotify) return;
 
       // should be notified
-      toast.custom((t: any) => (
+      toast.custom((t) => (
         <UnseenChatToast
           t={t}
           sessionId={sessionId}

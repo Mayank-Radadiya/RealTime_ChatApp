@@ -14,7 +14,8 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata = {
+// Type the metadata export with Metadata
+export const metadata: Metadata = {
   title: "FriendZone | Home",
   description: "Welcome to the FriendZone",
 };

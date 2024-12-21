@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 
     const timestamp = Date.now();
 
-    const messageData:any = {
+    const messageData= {
       id: nanoid(),
       senderId: session.user.id,
       text,

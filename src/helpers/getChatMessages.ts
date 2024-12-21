@@ -16,8 +16,9 @@ export async function getChatMessages(chatId: string) {
 
     const messages = messageArrayValidator.parse(reversedDbMessages);
 
-    return messages
+    return messages;
   } catch (error) {
+    console.error("Error fetching chat messages:", error);
     notFound();
   }
 }
