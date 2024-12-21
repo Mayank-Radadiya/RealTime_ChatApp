@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Messages from "@/components/BasicUi/Messages";
 import ChatInput from "@/components/BasicUi/ChatInput";
+
 interface pageProps {
   params: {
     chatId: string;
@@ -13,7 +14,8 @@ interface pageProps {
 }
 
 const Page = async ({ params }: pageProps) => {
-  const { chatId } = await params;
+  // No need for `await` here
+  const { chatId } = params;
 
   const session = await getServerSession(authOptions);
   if (!session) notFound();
@@ -25,6 +27,7 @@ const Page = async ({ params }: pageProps) => {
   if (user.id !== userId1 && user.id !== userId2) {
     notFound();
   }
+
   const chatPartnerId = user.id === userId1 ? userId2 : userId1;
 
   const chatPartnerRaw = (await fetchRedis(
