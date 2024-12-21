@@ -38,7 +38,7 @@ const FriendRequests: FC<FriendRequestsProps> = ({
       senderEmail,
     }: IncomingFriendRequest) => {
       console.log("function got called");
-      setFriendRequests((prev:any) => [...prev, { senderId, senderEmail }]);
+      setFriendRequests((prev) => [...prev, { senderId, senderEmail }]);
     };
 
     pusherClient.bind("incoming_friend_requests", friendRequestHandler);

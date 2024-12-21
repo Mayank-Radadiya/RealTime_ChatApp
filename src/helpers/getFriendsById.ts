@@ -16,7 +16,7 @@ export async function getFriendsById(userId: string) {
     );
 
     return friends;
-  } catch (error: any) {
+  } catch (error) {
     throw new Error("Error fetching friends", error);
   }
 }
