@@ -7,13 +7,13 @@ import Image from "next/image";
 import Messages from "@/components/BasicUi/Messages";
 import ChatInput from "@/components/BasicUi/ChatInput";
 
-interface pageProps {
+interface Props {
   params: {
     chatId: string;
   };
 }
 
-const Page = async ({ params }: pageProps) => {
+const Page = async ({ params }: Props) => {
   // No need for `await` here
   const { chatId } = params;
 
