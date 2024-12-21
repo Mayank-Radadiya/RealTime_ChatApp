@@ -3,7 +3,6 @@ import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth/auth.utils";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
-import { FC } from "react";
 import Image from "next/image";
 import Messages from "@/components/BasicUi/Messages";
 import ChatInput from "@/components/BasicUi/ChatInput";

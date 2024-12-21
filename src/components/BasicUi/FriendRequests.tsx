@@ -1,10 +1,9 @@
 "use client";
-import { Check, Frown, SendHorizontal, UserPlus, X } from "lucide-react";
+import { Check, Frown, SendHorizontal, X } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import {
   Card,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";

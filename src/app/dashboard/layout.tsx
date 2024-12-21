@@ -3,8 +3,8 @@ import { authOptions } from "@/lib/auth/auth.utils";
 import { SidebarOption } from "@/lib/types/typings";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import { FC, ReactNode } from "react";
+import { notFound } from "next/navigation";
+import { ReactNode } from "react";
 import Image from "next/image";
 import SignOutButton from "@/components/BasicUi/SignOutButton";
 import FriendRequestSidebar from "@/components/BasicUi/FriendRequestSidebar";
@@ -35,7 +35,6 @@ const layout = async ({ children }: layoutProps) => {
   if (!session) notFound();
 
   const friends = await getFriendsById(session.user.id);
-  
 
   const unseenRequestCount = (
     (await fetchRedis(

@@ -1,7 +1,7 @@
 "use client";
 
-import Button from '@/components/ui/Button';
-import { FC, useState } from 'react'
+import Button from "@/components/ui/Button";
+import { useState } from "react";
 import { signIn } from "next-auth/react";
 import {
   Card,
@@ -12,23 +12,18 @@ import {
 
 import { toast } from "react-hot-toast";
 
-interface pageProps {
-  
-}
-
-const page: FC<pageProps> = ({}) => {
-
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+const page = ({}) => {
+  const [IsLoading, SetIsLoading] = useState<boolean>(false);
 
   async function loginWithGoogle() {
-    setIsLoading(true);
+    SetIsLoading(true);
     try {
       await signIn("google");
     } catch (error) {
-      // display error message to user
       toast.error("Something went wrong with your login.");
+      console.error(error);
     } finally {
-      setIsLoading(false);
+      SetIsLoading(false);
     }
   }
   return (
@@ -61,12 +56,12 @@ const page: FC<pageProps> = ({}) => {
             </CardDescription>
           </CardHeader>
           <Button
-            isLoading={isLoading}
+            isLoading={IsLoading}
             type="button"
             className="mt-4 flex items-center justify-center w-full max-w-sm bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out disabled:bg-blue-300 disabled:cursor-not-allowed"
             onClick={loginWithGoogle}
           >
-            {isLoading ? null : (
+            {IsLoading ? null : (
               <svg
                 className="mr-2 h-5 w-5"
                 aria-hidden="true"
@@ -99,6 +94,6 @@ const page: FC<pageProps> = ({}) => {
       </div>
     </>
   );
-}
+};
 
-export default page
+export default page;
