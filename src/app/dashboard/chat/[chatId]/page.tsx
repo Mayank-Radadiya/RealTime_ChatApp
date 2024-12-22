@@ -8,13 +8,14 @@ import Messages from "@/components/BasicUi/Messages";
 import ChatInput from "@/components/BasicUi/ChatInput";
 
 interface PageProps {
-  params: { chatId: string | any  };
+  params: { chatId: string | any };
 }
 
 const Page = async ({ params }: PageProps) => {
   // Destructure `params`
   const { chatId } = await params;
   if (!chatId) notFound();
+  if(chatId === undefined)  notFound(); 
 
   const session = await getServerSession(authOptions);
   if (!session) notFound();

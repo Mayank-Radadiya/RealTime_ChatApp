@@ -2,11 +2,7 @@
 import { Check, Frown, SendHorizontal, X } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import Button from "../ui/Button";
 import Image from "next/image";
 import axios from "axios";
