@@ -7,15 +7,9 @@ import Image from "next/image";
 import Messages from "@/components/BasicUi/Messages";
 import ChatInput from "@/components/BasicUi/ChatInput";
 
-interface Props {
-  params: {
-    chatId: string;
-  };
-}
-
-const Page = async ({ params }: Props) => {
-  // No need for `await` here
-  const { chatId } = params;
+const Page = async ({ params }: { params: { chatId: string } }) => {
+  // Use `params` directly
+  const { chatId } = await params;
 
   const session = await getServerSession(authOptions);
   if (!session) notFound();
