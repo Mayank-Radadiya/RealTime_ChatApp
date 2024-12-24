@@ -6,16 +6,20 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Messages from "@/components/BasicUi/Messages";
 import ChatInput from "@/components/BasicUi/ChatInput";
+import { FC } from "react";
+
 
 interface PageProps {
-  params: { chatId: string | any };
+  params: {
+    chatId: string;
+  };
 }
 
-const Page = async ({ params }: PageProps) => {
-  // Destructure `params`
-  const { chatId } = await params;
+
+const Page: FC = async ({ params }:PageProps) => {
+  const { chatId } = await  params;
+
   if (!chatId) notFound();
-  if(chatId === undefined)  notFound(); 
 
   const session = await getServerSession(authOptions);
   if (!session) notFound();
